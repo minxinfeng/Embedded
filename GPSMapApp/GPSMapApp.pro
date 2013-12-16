@@ -11,8 +11,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp
+        widget.cpp \
+    gpsreader.cpp
 
-HEADERS  += widget.h
+HEADERS  += widget.h \
+    gpsreader.h
 
 FORMS    += widget.ui
