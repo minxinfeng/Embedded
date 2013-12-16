@@ -11,8 +11,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp
+        widget.cpp \
+    road.cpp \
+    posNode.cpp
 
-HEADERS  += widget.h
+HEADERS  += widget.h \
+    road.h \
+    posNode.h
 
 FORMS    += widget.ui
+
+OTHER_FILES += \
+    graph.txt \
+    node.txt \
+    start.txt
