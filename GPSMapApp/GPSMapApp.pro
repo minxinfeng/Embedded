@@ -12,9 +12,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         widget.cpp \
-    gpsreader.cpp
+    	gpsreader.cpp\
+	road.cpp \
+    	posNode.cpp
 
 HEADERS  += widget.h \
-    gpsreader.h
+    gpsreader.h\
+    road.h \
+    posNode.h
 
 FORMS    += widget.ui
+
+OTHER_FILES += \
+    graph.txt \
+    node.txt \
+    start.txt
