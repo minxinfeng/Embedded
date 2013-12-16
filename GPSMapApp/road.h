@@ -1,6 +1,11 @@
 #ifndef ROAD_H
 #define ROAD_H
 
+/************************************************************************/
+/* Author: Feng Xiangmin                                                */
+/* Find the road from start to the end*/
+/************************************************************************/
+
 #include <iostream>
 #include <fstream> //the header of file read and write
 #include <list>
@@ -13,10 +18,6 @@
 #include "posNode.h"
 using namespace std;
 
-/************************************************************************/
-/* Author: Feng Xiangmin                                                */
-/* Find the road from start to the end*/
-/************************************************************************/
 
 #define INF 100000//not connect directly
 #define NUM 16 // the number of the Node
@@ -76,7 +77,7 @@ double GetDistance(double lat1, double lng1, double lat2, double lng2);
 /************************************************************************/
 posNode getNodeInfoByLine(string str);
 
-//最短路径算法
+//algrithom of shortest path
 void floyd();
 
 //get the path nodes ids
