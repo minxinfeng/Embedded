@@ -4,7 +4,7 @@
 /************************************************************************/
 #ifndef POSNODE_H
 #define POSNODE_H
-#pragma once
+
 class posNode
 {
     public:
