@@ -1,6 +1,11 @@
 #ifndef ROAD_H
 #define ROAD_H
 
+/************************************************************************/
+/* Author: Feng Xiangmin                                                */
+/* Find the road from start to the end*/
+/************************************************************************/
+
 #include <iostream>
 #include <fstream> //the header of file read and write
 #include <list>
@@ -13,22 +18,10 @@
 #include "posNode.h"
 using namespace std;
 
-/************************************************************************/
-/* Author: Feng Xiangmin                                                */
-/* Find the road from start to the end*/
-/************************************************************************/
 
 #define INF 100000//not connect directly
 #define NUM 16 // the number of the Node
-const double EARTH_RADIUS = 6371.004;//earth radius
 
-int n=NUM,// the number of node
-    path[NUM+1][NUM+1],// path[i][j]:the max id of the node in the road between i and j表示该路径中的最大顶点
-    dist[NUM+1][NUM+1],//dist[j][j]:the shortest distance between i and j
-    map[NUM+1][NUM+1];//map[i][j]: means weather i and j is connected, 0 is not, 1 is connected
-
-list<posNode> nodes;//all nodes list
-list<int> ids;//all the node ids
 
 /************************************************************************/
 /* get the path from start file to the end point by lat and lng         */
@@ -61,10 +54,7 @@ posNode getTheNearestNode(double latitude, double longitude);
 /************************************************************************/
 posNode toNode(list<posNode>::iterator iter);
 
-double rad(double d)
-{
-    return d *  M_PI/ 180.0;
-}
+double rad(double d);
 
 /************************************************************************/
 /* get the real distance of two point                                   */
@@ -76,7 +66,7 @@ double GetDistance(double lat1, double lng1, double lat2, double lng2);
 /************************************************************************/
 posNode getNodeInfoByLine(string str);
 
-//最短路径算法
+//algrithom of shortest path
 void floyd();
 
 //get the path nodes ids

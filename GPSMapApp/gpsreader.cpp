@@ -6,7 +6,6 @@
 #include<fcntl.h>
 #include<unistd.h>
 #include<termios.h>
-#include<string.h>
 
 #include "gpsreader.h"
 
@@ -34,6 +33,17 @@ int GPSReader::startFD()
      }
 
      return fd;
+}
+
+int GPSReader::writeToFile()
+{
+    FILE *file;
+    file = fopen("/data/map/start.txt","w");
+    char buf[100] = "";
+    sprintf(buf,"%lf %lf",m_longitude, m_latitude);
+    fprintf(file, "%s", buf);
+    fclose(file);
+    return 0;
 }
 
 int GPSReader::set_opt( int fd, int nSpeed, int nBits, char nEvent, int nStop )

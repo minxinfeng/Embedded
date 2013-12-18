@@ -1,11 +1,10 @@
-#ifndef POSNODE_H
-#define POSNODE_H
-
-#pragma once
 /************************************************************************/
 /* author: FengXiangmin                                                 */
 /* the basic data structure of the node*/
 /************************************************************************/
+#ifndef POSNODE_H
+#define POSNODE_H
+#pragma once
 class posNode
 {
     public:
