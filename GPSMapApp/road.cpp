@@ -31,7 +31,7 @@ list<posNode> getPath(double endlat, double endlng){
     ifstream startFile("data/map/start.txt");
     if (! startFile.is_open())
     {
-        cout << "Error get the map data! Exit!";
+        cout << "Error get the start data! Exit!";
         exit (1);
     }
     string str;
@@ -71,7 +71,7 @@ list<posNode> getAllNode()
      //ifstream nodefile("node.txt");
      if (! nodefile.is_open())
      {
-         cout << "Error get the map data! Exit!";
+         cout << "Error get all node data! Exit!";
          exit (1);
      }
 
