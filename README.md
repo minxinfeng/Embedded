@@ -6,17 +6,17 @@ The final project about the Embedded System & Embedded Linux Development Class: 
 
 Project Requirement    
 
-1.  make the map data.
-	* map format: make your university campus map by the specific  format( should include  longitude and latitude ). 
-	* construct road network.    
-	* map block:  divide map into some blocks averagely.
-2. load the map block which the current point belongs to in the screen when moving GPS.
-3. show latitude and longitude of the current point in the screen  when moving GPS. 
-4. calculate the route of start point and end point.
+1.  Make the map data.
+	* Map format: make your university campus map by the specific  format( should include  longitude and latitude ). 
+	* Construct road network.    
+	* Map block:  divide map into some blocks averagely.
+2. Load the map block which the current point belongs to in the screen when moving GPS.
+3. Show latitude and longitude of the current point in the screen when moving GPS. 
+4. Calculate the route of start point and end point.
 	* if there is no enough power cord, you may save the start point to file, when restart ARM board load the start point again, then calculate the rout after set the end piont.
 
 *******
-subProject
+SubProject
 ------
 The process flow as following:  
 	
@@ -47,3 +47,8 @@ How to get the road?
 5. Get the shorted path node id by floyd algorithm， all the ids store in: list<int> ids;
 	
 6. Get the detail info of the nodes and return the list<posNode> pathNodes
+
+*******
+TBD：
+	
+1. Show latitude and longitude of the current point in the screen when moving GPS. 
