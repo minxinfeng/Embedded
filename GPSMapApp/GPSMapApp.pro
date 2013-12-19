@@ -11,17 +11,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp \
     road.cpp \
     posNode.cpp \
     gpsreader.cpp \
     mapform.cpp
 
-HEADERS  += widget.h \
-    road.h \
+HEADERS  += road.h \
     posNode.h \
     gpsreader.h \
     mapform.h
 
-FORMS    += widget.ui \
-    mapform.ui
+FORMS    += mapform.ui
