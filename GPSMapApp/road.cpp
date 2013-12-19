@@ -4,6 +4,20 @@
 /* Author: Feng Xiangmin                                                */
 /* Find the road from start to the end*/
 /************************************************************************/
+const double EARTH_RADIUS = 6371.004;//earth radius
+//class posNode;
+int n=NUM;// the number of node
+int path[NUM+1][NUM+1];// path[i][j]:the max id of the node in the road between i and j表示该路径中的最大顶点
+int dist[NUM+1][NUM+1];//dist[j][j]:the shortest distance between i and j
+int map[NUM+1][NUM+1];//map[i][j]: means weather i and j is connected, 0 is not, 1 is connected
+
+list<posNode> nodes;//all nodes list
+list<int> ids;//all the node ids
+
+double rad(double d)
+{
+    return d *  M_PI/ 180.0;
+}
 
 list<posNode> getPath(double endlat, double endlng){
     list<posNode> pathNodes;
@@ -14,7 +28,7 @@ list<posNode> getPath(double endlat, double endlng){
     //get all nodes
     getAllNode();
     //read file to get the nearest point of the start point
-    ifstream startFile("/data/map/start.txt");
+    ifstream startFile("data/map/start.txt");
     if (! startFile.is_open())
     {
         cout << "Error get the map data! Exit!";
@@ -53,7 +67,8 @@ list<posNode> getAllNode()
 {
      char buffer[256];
 
-     ifstream nodefile("/data/map/node.txt");
+     ifstream nodefile("data/map/node.txt");
+     //ifstream nodefile("node.txt");
      if (! nodefile.is_open())
      {
          cout << "Error get the map data! Exit!";
@@ -88,7 +103,7 @@ list<posNode> getAllNode()
  void getMapData(){
      char ch;
      int i, j;
-     ifstream graphFile("/data/map/graph.txt");
+     ifstream graphFile("data/map/graph.txt");
      if (! graphFile.is_open())
      {
          cout << "Error get the map data! Exit!";
