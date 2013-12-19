@@ -6,33 +6,43 @@
 #include<fcntl.h>
 #include<unistd.h>
 #include<termios.h>
-
+#include <iostream>
 #include "gpsreader.h"
+using namespace std;
 
 GPSReader::GPSReader()
 {
+    m_gpsFD = -1;
     m_latitude = 0.0f;
     m_longitude = 0.0f;
 }
+
+GPSReader::~GPSReader()
+{
+    if(m_gpsFD != -1)
+        close(m_gpsFD);
+}
+
 int GPSReader::startFD()
 {
-    int fd, nset;
+    int nset;
 
-    fd = open( "/dev/ttySAC1", O_RDWR);
-    if (fd == -1)
+    m_gpsFD = open("/dev/ttySAC1", O_RDWR);
+    if (m_gpsFD == -1)
     {
-        printf("error open ttySAC1\n");
+        cout << "error open ttySAC1\n";
         return -1;
     }
 
-     nset = set_opt(fd, 4800, 8, 'N', 1);
+     nset = set_opt(m_gpsFD, 4800, 8, 'N', 1);
      if(nset == -1)
      {
+         cout << "set_opt fail!\n";
         printf("set_opt fail!\n");
         return -1;
      }
 
-     return fd;
+     return m_gpsFD;
 }
 
 int GPSReader::writeToFile()

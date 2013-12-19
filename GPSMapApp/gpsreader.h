@@ -11,7 +11,7 @@ class GPSReader
 {
 public:
     GPSReader();
-
+    virtual ~GPSReader();
     /* open GPS Fd and return it */
     int startFD();
     /* write current lontitude and latitude to file */
@@ -23,9 +23,12 @@ public:
 
     double getLongitude(){return m_longitude; }
     double getLatitude(){return m_latitude; }
+    int getGPSFD(){return m_gpsFD; }
 private:
+    int m_gpsFD;
     double m_longitude;
     double m_latitude;
+
 };
 
 #endif // GPSREADER_H
