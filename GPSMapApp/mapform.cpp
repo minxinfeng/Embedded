@@ -17,15 +17,13 @@ MapForm::MapForm(QWidget *parent) :
 
     test = 1;
 
-    getAllNode();
-
     ui->setupUi(this);
 
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(getGPSData()));
     timer->start(1000);
 
-    m_gps.startFD();
+    //m_gps.startFD();
 }
 
 MapForm::~MapForm()
@@ -41,8 +39,10 @@ void MapForm::paintEvent(QPaintEvent *)
     painter.setPen(pen);
 
     painter.drawPixmap(0,0,480,272,QPixmap("Res/map.bmp"));
-    double latitude = m_gps.getLatitude();// test++
-    double longtitude = m_gps.getLongitude();//
+    double latitude = test++;
+    double longtitude = test++;
+    //double latitude = m_gps.getLatitude();
+    //double longtitude = m_gps.getLongitude();
     char gpsCur[100] = "";
     sprintf(gpsCur, "latitude: %f,longtitude: %f", latitude, longtitude);;
     painter.drawText(10, 260, gpsCur);
@@ -86,8 +86,8 @@ void MapForm::on_PBtn_Start_clicked()
     posNode startPoint;
 
     m_gps.writeToFile();//39.95185 116.34041
-    startPoint = getTheNearestNode(m_gps.getLatitude(),m_gps.getLongitude());
-   // startPoint = getTheNearestNode(39.95185,116.34041);
+    //startPoint = getTheNearestNode(m_gps.getLatitude(),m_gps.getLongitude());
+    startPoint = getTheNearestNode(39.95185,116.34041);
     x_start = startPoint.x;
     y_start = startPoint.y;
 
@@ -103,11 +103,11 @@ paint the path;
 void MapForm::on_PBtn_Destination_clicked()
 {
     posNode endPoint;
-    nodes_path = getPath(m_gps.getLatitude(),m_gps.getLongitude());
-    //nodes_path = getPath(39.95146,116.34494);
+    //nodes_path = getPath(m_gps.getLatitude(),m_gps.getLongitude());
+    nodes_path = getPath(39.95146,116.34494);
 
-    endPoint = getTheNearestNode(m_gps.getLatitude(),m_gps.getLongitude());
-    //endPoint = getTheNearestNode(39.95146,116.34494);
+    //endPoint = getTheNearestNode(m_gps.getLatitude(),m_gps.getLongitude());
+    endPoint = getTheNearestNode(39.95146,116.34494);
     x_des = endPoint.x;
     y_des = endPoint.y;
 

@@ -11,7 +11,7 @@ int path[NUM+1][NUM+1];// path[i][j]:the max id of the node in the road between 
 int dist[NUM+1][NUM+1];//dist[j][j]:the shortest distance between i and j
 int map[NUM+1][NUM+1];//map[i][j]: means weather i and j is connected, 0 is not, 1 is connected
 
-list<posNode> nodes;//all nodes list
+//list<posNode> nodes;//all nodes list
 list<int> ids;//all the node ids
 
 double rad(double d)
@@ -25,8 +25,10 @@ list<posNode> getPath(double endlat, double endlng){
     posNode endNode;
     int startId;
     int endId;
+    list<posNode> nodes;
+    ids.clear();
     //get all nodes
-    getAllNode();
+    nodes = getAllNode();
     //read file to get the nearest point of the start point
     ifstream startFile("data/map/start.txt");
     if (! startFile.is_open())
@@ -66,7 +68,7 @@ list<posNode> getPath(double endlat, double endlng){
 list<posNode> getAllNode()
 {
      char buffer[256];
-
+     list<posNode> nodes;
      ifstream nodefile("data/map/node.txt");
      //ifstream nodefile("node.txt");
      if (! nodefile.is_open())
@@ -90,6 +92,7 @@ list<posNode> getAllNode()
  {
      int i = 0;
      posNode node;
+     list<posNode> nodes = getAllNode();
      list<posNode>::iterator iter = nodes.begin();
      for(i = 0; i < id - 1; i ++)
      {
@@ -128,7 +131,7 @@ list<posNode> getAllNode()
 posNode getTheNearestNode(double latitude, double longitude){
     posNode node;
     double tempdist;
-
+    list<posNode> nodes = getAllNode();
     list<posNode>::iterator iter = nodes.begin();
 
     double mindist = GetDistance(latitude, longitude, iter->latitude, iter->longitude);
