@@ -47,8 +47,3 @@ How to get the road?
 5. Get the shorted path node id by floyd algorithm， all the ids store in: list<int> ids;
 	
 6. Get the detail info of the nodes and return the list<posNode> pathNodes
-
-*******
-TBD：
-	
-1. Show latitude and longitude of the current point in the screen when moving GPS. 
