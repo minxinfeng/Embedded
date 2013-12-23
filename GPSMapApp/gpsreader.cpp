@@ -37,11 +37,11 @@ int GPSReader::startFD()
      nset = set_opt(m_gpsFD, 4800, 8, 'N', 1);
      if(nset == -1)
      {
-         cout << "set_opt fail!\n";
+        cout << "set_opt fail!\n";
         printf("set_opt fail!\n");
         return -1;
      }
-
+     cout << "set_opt succ!" << nset << "\n";
      return m_gpsFD;
 }
 
@@ -50,7 +50,7 @@ int GPSReader::writeToFile()
     FILE *file;
     file = fopen("/data/map/start.txt","w");
     char buf[100] = "";
-    sprintf(buf,"%lf %lf",m_longitude, m_latitude);
+    sprintf(buf,"%lf %lf", m_latitude, m_longitude);
     fprintf(file, "%s", buf);
     fclose(file);
     return 0;
@@ -143,7 +143,11 @@ int GPSReader::parseNE(char *buff)
     char *temp;
     char temp1[500] = "";
     char strN[20] = "";
+    char strN2first[10] = "";
+    char strNLeft[20] = "";
     char strE[20] = "";
+    char strE2first[10] = "";
+    char strELeft[20] = "";
 
     temp = strstr(buff,"$GPRMC");
     if(temp == NULL) return -1;
@@ -157,6 +161,9 @@ int GPSReader::parseNE(char *buff)
     char* p = temp1;
     p = p + 2;
     memcpy(strN,p,9);
+    memcpy(strN2first,p,2);
+    p = p + 2;
+    memcpy(strNLeft,p,7);
 
     ret = sscanf(temp,"%*[^N]%[^E]",temp1);
     if(ret == 0)
@@ -167,9 +174,15 @@ int GPSReader::parseNE(char *buff)
 
     p = temp1;
     p = p + 2;
-    memcpy(strE,p,9);
+    memcpy(strE,p,10);
+    memcpy(strE2first,p,3);
+    p = p + 3;
+    memcpy(strELeft,p,7);
 
-    m_latitude = atof(strN);
-    m_longitude = atof(strE);
+    m_latitude = atof(strN2first) + atof(strNLeft)/60;
+    m_longitude = atof(strE2first) + atof(strELeft)/60;
+    m_latitude = m_latitude + LA_SHIFT;
+    m_longitude = m_longitude + LO_SHIFT;
+    printf("la:%f,lo:%f\n",m_latitude,m_longitude);
     return 0;
 }

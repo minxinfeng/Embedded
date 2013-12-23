@@ -15,15 +15,15 @@ MapForm::MapForm(QWidget *parent) :
     m_des_flag = false;
     m_path_flag = false;
 
-    test = 1;
+    //test = 1;
 
     ui->setupUi(this);
 
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(getGPSData()));
-    timer->start(1000);
+    timer->start(3000);
 
-    //m_gps.startFD();
+    m_gps.startFD();
 }
 
 MapForm::~MapForm()
@@ -34,18 +34,18 @@ MapForm::~MapForm()
 void MapForm::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    QPen pen;
-    pen.setColor(Qt::red);
+    QPen pen = QPen(Qt::green, 5, Qt::SolidLine, Qt::RoundCap);
     painter.setPen(pen);
 
     painter.drawPixmap(0,0,480,272,QPixmap("Res/map.bmp"));
-    double latitude = test++;
-    double longtitude = test++;
-    //double latitude = m_gps.getLatitude();
-    //double longtitude = m_gps.getLongitude();
+    //double latitude = test++;
+    //double longtitude = test++;
+    double latitude = m_gps.getLatitude();
+    double longtitude = m_gps.getLongitude();
     char gpsCur[100] = "";
-    sprintf(gpsCur, "latitude: %f,longtitude: %f", latitude, longtitude);;
-    painter.drawText(10, 260, gpsCur);
+    sprintf(gpsCur, "latitude: %f,longtitude: %f", latitude, longtitude);
+    painter.drawText(10,230,gpsCur);
+
 
     if(m_start_flag) {
         painter.drawPixmap(x_start-X_SHIFT,y_start-Y_SHIFT,ICON_SIZE,ICON_SIZE,QPixmap("Res/start.png"));
@@ -60,7 +60,8 @@ void MapForm::paintEvent(QPaintEvent *)
         int y1 = (toNode(nodes_path.begin()).y);
         int x2 = 0;
         int y2 = 0;
-
+        printf("s_x:%d,s_y:%d",x1,y1);
+        painter.drawPixmap(x1-X_SHIFT,y1-Y_SHIFT,ICON_SIZE,ICON_SIZE,QPixmap("Res/start.png"));
         painter.drawPixmap(x1-X_SHIFT,y1-Y_SHIFT,ICON_SIZE,ICON_SIZE,QPixmap("Res/start.png"));
         list<posNode>::iterator iter = nodes_path.begin().operator ++();
         for(iter; iter!=nodes_path.end(); iter ++)
@@ -73,6 +74,16 @@ void MapForm::paintEvent(QPaintEvent *)
             y1 = y2;
         }
     }
+
+    // show all nodes on the map
+    list<posNode> allnodes=  getAllNode();
+    list<posNode>::iterator iter2 = allnodes.begin();
+    for(iter2; iter2!=allnodes.end(); iter2 ++)
+    {
+        posNode node2 = toNode(iter2);
+        painter.drawPoint(node2.x,node2.y);
+    }
+
 }
 
 /***********************************************
@@ -86,8 +97,8 @@ void MapForm::on_PBtn_Start_clicked()
     posNode startPoint;
 
     m_gps.writeToFile();//39.95185 116.34041
-    //startPoint = getTheNearestNode(m_gps.getLatitude(),m_gps.getLongitude());
-    startPoint = getTheNearestNode(39.95185,116.34041);
+    startPoint = getTheNearestNode(m_gps.getLatitude(),m_gps.getLongitude());
+    //startPoint = getTheNearestNode(39.95185,116.34041);
     x_start = startPoint.x;
     y_start = startPoint.y;
 
@@ -103,15 +114,16 @@ paint the path;
 void MapForm::on_PBtn_Destination_clicked()
 {
     posNode endPoint;
-    //nodes_path = getPath(m_gps.getLatitude(),m_gps.getLongitude());
-    nodes_path = getPath(39.95146,116.34494);
+    nodes_path = getPath(m_gps.getLatitude(),m_gps.getLongitude());
+    //nodes_path = getPath(39.95146,116.34494);
 
-    //endPoint = getTheNearestNode(m_gps.getLatitude(),m_gps.getLongitude());
-    endPoint = getTheNearestNode(39.95146,116.34494);
+    endPoint = getTheNearestNode(m_gps.getLatitude(),m_gps.getLongitude());
+    //endPoint = getTheNearestNode(39.95146,116.34494);
     x_des = endPoint.x;
     y_des = endPoint.y;
+    cout << "endPoint: x = " << x_des << ", y = " << y_des << endl;
 
-    m_start_flag = true;
+    // m_start_flag = true;
     m_des_flag = true;
     m_path_flag = true;
     this->update();

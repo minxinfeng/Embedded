@@ -6,6 +6,8 @@
 /*********************************************************************/
 #ifndef GPSREADER_H
 #define GPSREADER_H
+#define LA_SHIFT 0.001256
+#define LO_SHIFT 0.006193
 
 class GPSReader
 {
